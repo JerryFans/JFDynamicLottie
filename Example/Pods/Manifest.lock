@@ -1,0 +1,31 @@
+PODS:
+  - JFDynamicLottie (0.1.0):
+    - lottie-ios (~> 4.3.0)
+  - JFPopup (1.5.4):
+    - JRBaseKit (~> 1.1.1)
+  - JRBaseKit (1.1.2)
+  - lottie-ios (4.3.3)
+
+DEPENDENCIES:
+  - JFDynamicLottie (from `../`)
+  - JFPopup
+
+SPEC REPOS:
+  trunk:
+    - JFPopup
+    - JRBaseKit
+    - lottie-ios
+
+EXTERNAL SOURCES:
+  JFDynamicLottie:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  JFDynamicLottie: 137ce5d1f5f7cbc36ebb1052dbb6d19ded5fe19a
+  JFPopup: c3ada13bbda3cfe85bd71228e20a0b622eab72af
+  JRBaseKit: 825cca458a73990f6019deaaaaff75840dea477f
+  lottie-ios: 25e7b2675dad5c3ddad369ac9baab03560c5bfdd
+
+PODFILE CHECKSUM: d713403e53a7c39870d3fbd4c669599494602d3c
+
+COCOAPODS: 1.11.3

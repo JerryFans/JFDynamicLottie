@@ -5,6 +5,8 @@
 [![License](https://img.shields.io/cocoapods/l/JFDynamicLottie.svg?style=flat)](https://cocoapods.org/pods/JFDynamicLottie)
 [![Platform](https://img.shields.io/cocoapods/p/JFDynamicLottie.svg?style=flat)](https://cocoapods.org/pods/JFDynamicLottie)
 
+JFDynamicLottie is a Lottie Extension which can dynamic replace Lottie resource like image、text and with high performance running Lottie animation.
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.

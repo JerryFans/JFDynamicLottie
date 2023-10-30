@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,11 +18,52 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nmy-l4-okN">
+                                <rect key="frame" x="0.0" y="64" width="375" height="375"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Nmy-l4-okN" secondAttribute="height" multiplier="1:1" id="lFP-8Y-MF8"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="cm8-Ta-lxd">
+                                <rect key="frame" x="95" y="454" width="185" height="34.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QhE-kr-bmA">
+                                        <rect key="frame" x="0.0" y="0.0" width="85" height="34.5"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Play"/>
+                                        <connections>
+                                            <action selector="playBtnClick:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="YWG-Vf-LO8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eqT-Sf-axy">
+                                        <rect key="frame" x="100" y="0.0" width="85" height="34.5"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Replace"/>
+                                        <connections>
+                                            <action selector="replaceBtnClick:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="nHF-UI-2Bv"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="cm8-Ta-lxd" firstAttribute="top" secondItem="Nmy-l4-okN" secondAttribute="bottom" constant="15" id="BNz-wG-GBi"/>
+                            <constraint firstItem="Nmy-l4-okN" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="SP5-BE-AXJ"/>
+                            <constraint firstItem="Nmy-l4-okN" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="44" id="T7Q-sN-fje"/>
+                            <constraint firstAttribute="trailing" secondItem="Nmy-l4-okN" secondAttribute="trailing" id="mbj-ak-CLH"/>
+                            <constraint firstItem="cm8-Ta-lxd" firstAttribute="centerX" secondItem="Nmy-l4-okN" secondAttribute="centerX" id="vtR-Ig-gE7"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bgView" destination="Nmy-l4-okN" id="hF9-IU-Ww3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="28" y="-36"/>
         </scene>
     </scenes>
 </document>

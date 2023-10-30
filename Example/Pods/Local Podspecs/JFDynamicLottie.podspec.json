@@ -1,0 +1,29 @@
+{
+  "name": "JFDynamicLottie",
+  "version": "0.1.0",
+  "summary": "A short description of JFDynamicLottie.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/JerryFans/JFDynamicLottie",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "JerryFans": "fanjiarong_haohao@163.com"
+  },
+  "source": {
+    "git": "https://github.com/JerryFans/JFDynamicLottie.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "11.0"
+  },
+  "swift_versions": "5.0",
+  "source_files": "JFDynamicLottie/Classes/**/*",
+  "dependencies": {
+    "lottie-ios": [
+      "~> 4.3.0"
+    ]
+  },
+  "swift_version": "5.0"
+}
