@@ -41,5 +41,4 @@ TODO: Add long description of the pod here.
   # s.frameworks = 'UIKit', 'MapKit'
    s.dependency 'lottie-ios', '~> 4.3.0'
    s.dependency 'Zip', '~> 2.1'
-   s.dependency 'SwiftHash','~> 2.0.2'
 end

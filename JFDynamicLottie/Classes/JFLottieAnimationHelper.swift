@@ -7,12 +7,12 @@
 
 import Foundation
 import Zip
-import SwiftHash
+import CommonCrypto
 
 class JFLottieAnimationHelper {
     
     class func loadLottieFromNetowrkZip(url: URL, completion: @escaping (_ directoryPath: String?) -> Void) {
-        let md5 = MD5(url.path)
+        let md5 = Self.calculateMD5Hash(for: url.path)
         let result = Self.checkLottieFileIfSave(fileName: md5)
         if result.0 == true {
             DispatchQueue.main.async {
@@ -42,6 +42,21 @@ class JFLottieAnimationHelper {
             }
         }
         task.resume()
+    }
+
+    private class  func calculateMD5Hash(for string: String) -> String {
+        if let data = string.data(using: .utf8) {
+            var digest = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
+            data.withUnsafeBytes { bytes in
+                CC_MD5(bytes.baseAddress, CC_LONG(data.count), &digest)
+            }
+            var md5String = ""
+            for byte in digest {
+                md5String += String(format: "%02x", byte)
+            }
+            return md5String
+        }
+        return ""
     }
     
     private class func checkLottieFileIfSave(fileName: String) -> (Bool,String) {

@@ -1,13 +1,11 @@
 PODS:
-  - JFDynamicLottie (1.0.0):
+  - JFDynamicLottie (1.1.0):
     - lottie-ios (~> 4.3.0)
-    - SwiftHash (~> 2.0.2)
     - Zip (~> 2.1)
   - JFPopup (1.5.4):
     - JRBaseKit (~> 1.1.1)
   - JRBaseKit (1.1.2)
   - lottie-ios (4.3.3)
-  - SwiftHash (2.0.2)
   - Zip (2.1.2)
 
 DEPENDENCIES:
@@ -19,7 +17,6 @@ SPEC REPOS:
     - JFPopup
     - JRBaseKit
     - lottie-ios
-    - SwiftHash
     - Zip
 
 EXTERNAL SOURCES:
@@ -27,11 +24,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  JFDynamicLottie: 74d9fa610b477dade2099b85041d1e2452e87f6d
+  JFDynamicLottie: e0a227300e627e39f7e54dd482f2853b3d470053
   JFPopup: c3ada13bbda3cfe85bd71228e20a0b622eab72af
   JRBaseKit: 825cca458a73990f6019deaaaaff75840dea477f
   lottie-ios: 25e7b2675dad5c3ddad369ac9baab03560c5bfdd
-  SwiftHash: 6d312abe61c8359bdef8d0093642f3a70b1c17ba
   Zip: b3fef584b147b6e582b2256a9815c897d60ddc67
 
 PODFILE CHECKSUM: f5922071f54d9e27131d4b71a65a3af73b7a5dfc

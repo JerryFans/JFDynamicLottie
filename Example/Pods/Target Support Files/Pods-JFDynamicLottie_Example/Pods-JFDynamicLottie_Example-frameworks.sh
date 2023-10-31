@@ -179,7 +179,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/JFDynamicLottie/JFDynamicLottie.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/JFPopup/JFPopup.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/JRBaseKit/JRBaseKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftHash/SwiftHash.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Zip/Zip.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework"
 fi
@@ -187,7 +186,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/JFDynamicLottie/JFDynamicLottie.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/JFPopup/JFPopup.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/JRBaseKit/JRBaseKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftHash/SwiftHash.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Zip/Zip.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework"
 fi
