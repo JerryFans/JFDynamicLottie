@@ -288,11 +288,33 @@ public extension JFLottieAnimationView {
         return view
     }
     
-    //only support single lottie
     @objc class func network(fromJson url: URL, completion: @escaping (_ animationView: JFLottieAnimationView?) -> Void) {
         JFLottieAnimationView.loadLottieFrom(url: url, completion: completion)
     }
     
+    //support zip resource
+    @available(iOS 13.0, *)
+    class func network(fromZip url: URL, imageReplacement: [String : UIImage]? = nil, textReplacement: [String : String]? = nil) async -> JFLottieAnimationView? {
+        let view = await withCheckedContinuation { continuation in
+            Self.network(fromZip: url) { animationView in
+                continuation.resume(returning: animationView)
+            }
+          }
+        view?.textReplacement  = textReplacement
+        view?.imageReplacement = imageReplacement
+        return view
+    }
+    
+    @objc class func network(fromZip url: URL, completion: @escaping (_ animationView: JFLottieAnimationView?) -> Void) {
+        JFLottieAnimationHelper.loadLottieFromNetowrkZip(url: url) { directoryPath in
+            if let directoryPath {
+                completion(JFLottieAnimationView(directoryPath: directoryPath))
+            } else {
+                completion(nil)
+            }
+        }
+    }
+
     @objc class func file(filePath: String, imageReplacement: [String : UIImage]? = nil, textReplacement: [String : String]? = nil) -> JFLottieAnimationView {
         return JFLottieAnimationView(filepath: filePath, imageReplacement: imageReplacement, textReplacement: textReplacement)
     }

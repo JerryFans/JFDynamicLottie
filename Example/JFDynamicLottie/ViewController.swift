@@ -39,6 +39,9 @@ class ViewController: UIViewController {
                 JFPopupAction(with: "测试网络Json文件方式播放", subTitle: nil, clickActionCallBack: { [weak self] in
                     self?.replaceNetworkResourcePlay()
                 }),
+                JFPopupAction(with: "测试网络Lottie Zip文件方式播放", subTitle: nil, clickActionCallBack: { [weak self] in
+                    self?.replaceNetworkZipResourcePlay()
+                }),
                 JFPopupAction(with: "测试替换图片资源（播放后点击替换）", subTitle: nil, clickActionCallBack: { [weak self] in
                     self?.replaceImgResourcePlay()
                 }),
@@ -68,6 +71,38 @@ class ViewController: UIViewController {
             }
         } else {
             JFLottieAnimationView.network(fromJson: URL(string: "http://image.jerryfans.com/lottie_data.json")!) { [weak self] animationView in
+                guard let self = self else { return }
+                self.lottieView?.stop()
+                self.lottieView?.removeFromSuperview()
+                guard let view = animationView else { return }
+                self.bgView.addSubview(view)
+                let size = self.bgView.frame.size
+                view.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+                view.loopMode = .loop
+                view.play()
+                self.lottieView = view
+            }
+        }
+    }
+    
+    func replaceNetworkZipResourcePlay() {
+        self.isReplaceImg = true
+        self.isReplaceText = false
+        //支持Swift并发
+        if #available(iOS 13.0, *) {
+            Task {
+                guard let view = await JFLottieAnimationView.network(fromZip: URL(string: "http://image.jerryfans.com/slog_zm_effect_1.zip")!) else { return }
+                self.lottieView?.stop()
+                self.lottieView?.removeFromSuperview()
+                self.bgView.addSubview(view)
+                let size = self.bgView.frame.size
+                view.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+                view.loopMode = .loop
+                view.play()
+                self.lottieView = view
+            }
+        } else {
+            JFLottieAnimationView.network(fromZip: URL(string: "http://image.jerryfans.com/slog_zm_effect_1.zip")!) { [weak self] animationView in
                 guard let self = self else { return }
                 self.lottieView?.stop()
                 self.lottieView?.removeFromSuperview()

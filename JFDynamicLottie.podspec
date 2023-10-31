@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'JFDynamicLottie'
-  s.version          = '1.0.0'
+  s.version          = '1.1.0'
   s.summary          = 'JFDynamicLottie is a Lottie Extension which can dynamic replace Lottie resource like image、text and with high performance running Lottie animation.'
 
 # This description is used to generate tags and improve search results.
@@ -40,4 +40,6 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
    s.dependency 'lottie-ios', '~> 4.3.0'
+   s.dependency 'Zip', '~> 2.1'
+   s.dependency 'SwiftHash','~> 2.0.2'
 end
