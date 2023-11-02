@@ -66,34 +66,34 @@ class JFLottieAnimationHelper {
     
     private class func lottieResourceSavePath() -> URL {
         let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
-        let sourceURL = cacheDirectory.appendingPathComponent("lottieUnZipDir")
+        let sourceURL = cacheDirectory.appendingPathComponent("jf.dynamic.lottie.unzip.dir")
         return sourceURL
     }
     
     private class func unzipToCacheDirectory(originalURL: URL,networkUrlMd5: String ,fileName: String ,completion: @escaping (_ url: URL?) -> Void) {
-        DispatchQueue.global().async {
-            let sourceURL = Self.lottieResourceSavePath()
-            let md5 = networkUrlMd5
-            let fileUrl = originalURL.deletingLastPathComponent().appendingPathComponent("\(md5).zip")
-            let destinationUrl = sourceURL.appendingPathComponent(fileName)
-            let finalLotieUrl = sourceURL.appendingPathComponent(md5)
-            do {
-                if FileManager.default.fileExists(atPath: fileUrl.path) {
-                    try FileManager.default.removeItem(at: fileUrl)
-                }
-                try FileManager.default.moveItem(at: originalURL, to: fileUrl)
-                try FileManager.default.createDirectory(at: sourceURL, withIntermediateDirectories: true, attributes: nil) // 创建目标目录
-                try Zip.unzipFile(fileUrl, destination: sourceURL, overwrite: true, password: nil, progress: nil)
-                if FileManager.default.fileExists(atPath: destinationUrl.path) {
-                    try FileManager.default.moveItem(at: destinationUrl, to: finalLotieUrl)
-                    completion(finalLotieUrl)
-                } else {
-                    completion(nil)
-                }
-            } catch {
-                print("Unzip failed with error: \(error)")
+        guard FileManager.default.fileExists(atPath: originalURL.path) else {
+            completion(nil)
+            print("Unzip failed with original file not exist")
+            return
+        }
+        let sourceURL = Self.lottieResourceSavePath()
+        let md5 = networkUrlMd5
+        let fileUrl = originalURL.deletingPathExtension().appendingPathExtension("zip")
+        let destinationUrl = sourceURL.appendingPathComponent(fileName)
+        let finalLotieUrl = sourceURL.appendingPathComponent(md5)
+        do {
+            try FileManager.default.moveItem(at: originalURL, to: fileUrl)
+            try FileManager.default.createDirectory(at: sourceURL, withIntermediateDirectories: true, attributes: nil) // 创建目标目录
+            try Zip.unzipFile(fileUrl, destination: sourceURL, overwrite: true, password: nil, progress: nil)
+            if FileManager.default.fileExists(atPath: destinationUrl.path) {
+                try FileManager.default.moveItem(at: destinationUrl, to: finalLotieUrl)
+                completion(finalLotieUrl)
+            } else {
                 completion(nil)
             }
+        } catch {
+            print("Unzip failed with error: \(error)")
+            completion(nil)
         }
     }
 }
