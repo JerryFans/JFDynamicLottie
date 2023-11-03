@@ -30,7 +30,7 @@ open class JFLottieAnimationView: UIView {
     
     private static var mainBundleDirectoryPath: String?
     
-    private var animationView: LottieAnimationView!
+    public private(set) var animationView: LottieAnimationView!
     
     @objc dynamic public var animContentMode: UIView.ContentMode {
         set {
@@ -275,7 +275,7 @@ open class JFLottieAnimationView: UIView {
 
 public extension JFLottieAnimationView {
     
-    //only support single lottie json file
+    /** load a lottie json file  from network url  */
     @available(iOS 13.0, *)
     class func network(fromJson url: URL, imageReplacement: [String : UIImage]? = nil, textReplacement: [String : String]? = nil) async -> JFLottieAnimationView? {
         let view = await withCheckedContinuation { continuation in
@@ -288,11 +288,12 @@ public extension JFLottieAnimationView {
         return view
     }
     
+    /** load a lottie json file  from network url  */
     @objc class func network(fromJson url: URL, completion: @escaping (_ animationView: JFLottieAnimationView?) -> Void) {
         JFLottieAnimationView.loadLottieFrom(url: url, completion: completion)
     }
     
-    //support zip resource
+    /** load a zip lottie resource from network url  */
     @available(iOS 13.0, *)
     class func network(fromZip url: URL, imageReplacement: [String : UIImage]? = nil, textReplacement: [String : String]? = nil) async -> JFLottieAnimationView? {
         let view = await withCheckedContinuation { continuation in
@@ -305,6 +306,7 @@ public extension JFLottieAnimationView {
         return view
     }
     
+    /** load a zip lottie resource from network url  */
     @objc class func network(fromZip url: URL, completion: @escaping (_ animationView: JFLottieAnimationView?) -> Void) {
         JFLottieAnimationHelper.loadLottieFromNetowrkZip(url: url) { directoryPath in
             if let directoryPath {
@@ -314,11 +316,45 @@ public extension JFLottieAnimationView {
             }
         }
     }
+    
+    
+    
+    /** support .json or .zip (decompression with a same filename directory)  */
+    @available(iOS 13.0, *)
+    class func network(url: URL, imageReplacement: [String : UIImage]? = nil, textReplacement: [String : String]? = nil) async -> JFLottieAnimationView? {
+        let view = await withCheckedContinuation { continuation in
+            Self.network(url: url) { animationView in
+                continuation.resume(returning: animationView)
+            }
+          }
+        view?.textReplacement  = textReplacement
+        view?.imageReplacement = imageReplacement
+        return view
+    }
+    
+    /** support .json or .zip (decompression with a same filename directory)  */
+    @objc class func network(url: URL, completion: @escaping (_ animationView: JFLottieAnimationView?) -> Void) {
+        let pathExtension = url.pathExtension
+        if pathExtension == "json" {
+            Self.network(fromJson: url, completion: completion)
+        } else if pathExtension == "zip" {
+            Self.network(fromZip: url, completion: completion)
+        } else {
+            completion(nil)
+        }
+    }
 
+    /** load a  lottie resource from file path  */
     @objc class func file(filePath: String, imageReplacement: [String : UIImage]? = nil, textReplacement: [String : String]? = nil) -> JFLottieAnimationView {
         return JFLottieAnimationView(filepath: filePath, imageReplacement: imageReplacement, textReplacement: textReplacement)
     }
     
+    /** load a  lottie resource from a absolute directory path  */
+    @objc class func directory(dirPath: String, imageReplacement: [String : UIImage]? = nil, textReplacement: [String : String]? = nil) -> JFLottieAnimationView {
+        return JFLottieAnimationView(directoryPath: dirPath, imageReplacement: imageReplacement, textReplacement: textReplacement)
+    }
+    
+    /** load a  lottie resource from main bundle directory , first you should use setupMainBundleDirectoryPath class method to setup like (Resource/Lottie/)  */
     @objc class func mainBundle(directoryPath: String, imageReplacement: [String : UIImage]? = nil, textReplacement: [String : String]? = nil) -> JFLottieAnimationView {
         if Self.mainBundleDirectoryPath == nil {
             assert(Self.mainBundleDirectoryPath != nil, "must setup a main bundle directory path , use setupMainBundleDirectoryPath class method to setup like (Resource/Lottie/)")

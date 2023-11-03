@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'JFDynamicLottie'
-  s.version          = '1.1.1'
+  s.version          = '1.1.2'
   s.summary          = 'JFDynamicLottie is a Lottie Extension which can dynamic replace Lottie resource like image、text and with high performance running Lottie animation.'
 
 # This description is used to generate tags and improve search results.
