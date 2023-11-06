@@ -70,6 +70,8 @@ class JFLottieAnimationHelper {
         return sourceURL
     }
     
+    private static let queue = DispatchQueue(label: "com.lottie.download.io")
+    
     private class func unzipToCacheDirectory(originalURL: URL,networkUrlMd5: String ,fileName: String ,completion: @escaping (_ url: URL?) -> Void) {
         guard FileManager.default.fileExists(atPath: originalURL.path) else {
             completion(nil)
@@ -81,19 +83,24 @@ class JFLottieAnimationHelper {
         let fileUrl = originalURL.deletingPathExtension().appendingPathExtension("zip")
         let destinationUrl = sourceURL.appendingPathComponent(fileName)
         let finalLotieUrl = sourceURL.appendingPathComponent(md5)
-        do {
-            try FileManager.default.moveItem(at: originalURL, to: fileUrl)
-            try FileManager.default.createDirectory(at: sourceURL, withIntermediateDirectories: true, attributes: nil) // 创建目标目录
-            try Zip.unzipFile(fileUrl, destination: sourceURL, overwrite: true, password: nil, progress: nil)
-            if FileManager.default.fileExists(atPath: destinationUrl.path) {
-                try FileManager.default.moveItem(at: destinationUrl, to: finalLotieUrl)
-                completion(finalLotieUrl)
-            } else {
+        let sem = DispatchSemaphore(value: 1)
+        queue.async {
+            sem.wait()
+            do {
+                try FileManager.default.moveItem(at: originalURL, to: fileUrl)
+                try FileManager.default.createDirectory(at: sourceURL, withIntermediateDirectories: true, attributes: nil) // 创建目标目录
+                try Zip.unzipFile(fileUrl, destination: sourceURL, overwrite: true, password: nil, progress: nil)
+                if FileManager.default.fileExists(atPath: destinationUrl.path) {
+                    try FileManager.default.moveItem(at: destinationUrl, to: finalLotieUrl)
+                    completion(finalLotieUrl)
+                } else {
+                    completion(nil)
+                }
+            } catch {
+                print("Unzip failed with error: \(error)")
                 completion(nil)
             }
-        } catch {
-            print("Unzip failed with error: \(error)")
-            completion(nil)
+            sem.signal()
         }
     }
 }
